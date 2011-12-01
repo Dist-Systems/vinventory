@@ -44,9 +44,9 @@ class DataStore(ISCNode):
 class VMHost(ISCNode):
     manufacturer = models.ForeignKey('Vendor')
     model        = models.CharField(max_length="30")
-    cpuCount     = models.PositiveSmallIntegerField()#editable=False)
-    cpuTotal     = models.PositiveSmallIntegerField()#editable=False)
-    cpuUsage     = models.PositiveSmallIntegerField()#editable=False)
+    cpuCount     = models.PositiveSmallIntegerField(editable=False)
+    cpuTotal     = models.PositiveSmallIntegerField(editable=False)
+    cpuUsage     = models.PositiveSmallIntegerField(editable=False)
     processor    = models.CharField(max_length="50")
 
 
