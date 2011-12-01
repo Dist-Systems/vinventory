@@ -2,6 +2,7 @@ from django.db import models
 from django.forms import ModelForm
 
 # Abstract class that other inventory items can inherit from
+# http://stackoverflow.com/questions/1737017/django-auto-now-and-auto-now-add
 class ISCNode(models.Model): 
     ROLE_CHOICES = (
         (u'dev',  u'Development'),
