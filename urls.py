@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import *
 from django.views.generic import list_detail, create_update
-from proj.inventory.models import *
+from inventory.models import *
 
 info_dict = {
     # 'queryset':ISCNode.objects.all(),
