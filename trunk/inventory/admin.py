@@ -14,7 +14,7 @@ class VirtualMachineAdmin(admin.ModelAdmin):
     inlines = [IPInline]
     list_display = ('name', 'created', 'powerState')
 
-admin.site.register(VirtualMachine,VirtualMachineAdmin)
+admin.site.register(VirtualMachine)
 admin.site.register(Server)
 admin.site.register(DataStore)
 admin.site.register(IpAddress)
