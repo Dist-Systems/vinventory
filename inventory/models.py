@@ -8,7 +8,7 @@ class ISCNode(models.Model):
         (u'dev',  u'Development'),
         (u'prod', u'Production'),
     )
-    name       = models.CharField(max_length="30")
+    name       = models.CharField(max_length="30",unique=True, editable=False)
     notes      = models.TextField(blank=True)
     role       = models.CharField(max_length=4, choices=ROLE_CHOICES, blank=True)
     # These fields are hidden from the administrative interface
@@ -62,7 +62,7 @@ class VirtualMachine(ISCNode):
 # or typos by manual entry
 class Vendor(models.Model):
     name         = models.CharField(max_length="30")
-    website      = models.CharField(max_length="100")
+    website      = models.CharField(max_length="100", blank=True)
 
     def __unicode__(self):
         return self.name
