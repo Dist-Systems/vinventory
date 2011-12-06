@@ -1,0 +1,51 @@
+<html>
+<head>
+<title>DataStore Detail</title>
+<style type="text/css">
+table {
+	border-width: thin;
+	border-spacing: 2px;
+	border-style: outset;
+	border-color: gray;
+	border-collapse: collapse;
+	background-color: rgb(255, 245, 238);
+}
+table th {
+	border-width: thin;
+	padding: 4px;
+	border-style: outset;
+	border-color: gray;
+	background-color: rgb(250, 240, 230);
+	-moz-border-radius: ;
+}
+table td {
+	border-width: thin;
+	padding: 4px;
+	border-style: outset;
+	border-color: gray;
+	-moz-border-radius: ;
+}
+
+.row1{background-color: rgb(250, 240, 250);}
+.row2{background-color: rgb(210, 240, 230);}
+</style>
+</head>
+<html>
+<body>
+<h1>{{ object.name }}</h1>
+<table>
+<a href="{% url homepage %}" >back to homepage</a>
+<tr BGCOLOR="#cccccc"><td width="35%">Property</td><td>Value</td>
+<tr><td>Name</td><td>{{ object.name }}</td></tr>
+<tr><td>Capacity</td><td>{{ object.capacityMB }} MB</td></tr>
+<tr><td>Free Space</td><td>{{ object.freespaceMB }} MB</td></tr>
+<tr><td>File System Version</td><td>{{ object.filesystemVersion }}</td></tr>
+<tr><td>Virtual Machines</td>
+    <td><ul>{% for vm in object.virtualmachine_set.all %}
+        <li><a href="{% url  vm-detail object.id%}">{{ vm.name }}</a></li>{% endfor %}</ul
+	</td></tr>
+<tr><td>DataStore</td><td><a href="{% url datastore object.id%}" >{{ object.datastore }}</a></td></tr>
+<tr><td></td><td align="right"><small>Last modified ({{object.created|date:"Y:z g:i a"}})</small></td></tr>
+</table>
+</body>
+</html>
