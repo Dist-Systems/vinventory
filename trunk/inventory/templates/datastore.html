@@ -28,11 +28,32 @@ table td {
 
 .row1{background-color: rgb(250, 240, 250);}
 .row2{background-color: rgb(210, 240, 230);}
+#chart_div{float:right;}
 </style>
+
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Task');
+        data.addColumn('number', 'MB');
+        data.addRows(2);
+        data.setValue(0, 0, 'Capacity: {{ object.capacityMB }} MB');
+        data.setValue(0, 1, {{ object.capacityMB }} );
+        data.setValue(1, 0, 'Free Space: {{ object.freespaceMB }} MB');
+        data.setValue(1, 1, {{ object.freespaceMB }});
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, {width: 450, height: 300, title: 'Utilized space',colors: ['#aaeeaa', '#b2c8b2', '#d9e0de', '#cdded1'],});
+      }
+    </script>
 </head>
 <html>
 <body>
 <h1>{{ object.name }}</h1>
+<div id="chart_div"></div>
 <table>
 <a href="{% url homepage %}" >back to homepage</a>
 <tr BGCOLOR="#cccccc"><td width="35%">Property</td><td>Value</td>
