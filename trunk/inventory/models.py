@@ -11,7 +11,8 @@ class ISCNode(models.Model):
     name       = models.CharField(max_length="30",unique=True, editable=False)
     notes      = models.TextField(blank=True)
     role       = models.CharField(max_length=4, choices=ROLE_CHOICES, blank=True)
-    # These fields are hidden from the administrative interface
+    
+	# These fields are hidden from the administrative interface
     created    = models.DateTimeField(auto_now_add=True)
     modified   = models.DateTimeField(auto_now=True)
 
@@ -30,6 +31,7 @@ class Server(ISCNode):
     vender     = models.ForeignKey('Vendor')
     capacityMB = models.IntegerField()
     cpuCount   = models.PositiveSmallIntegerField()
+    purchased  = models.DateTimeField(blank=True)
 
 # Datastores can hold many VMHosts, by making 
 # a separate class, we avoid typos
