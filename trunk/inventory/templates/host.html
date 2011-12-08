@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Virtual Machine Detail</title>
+<title>VM Host Detail</title>
 <style type="text/css">
 table {
 	border-width: thin;
@@ -28,23 +28,28 @@ table td {
 
 .row1{background-color: rgb(250, 240, 250);}
 .row2{background-color: rgb(210, 240, 230);}
+#chart_div{float:right;}
 </style>
 </head>
 <html>
 <body>
 <h1>{{ object.name }}</h1>
+<div id="chart_div"></div>
 <table>
 <a href="{% url homepage %}" >back to homepage</a>
 <tr BGCOLOR="#cccccc"><td width="35%">Property</td><td>Value</td>
 <tr><td>Name</td><td>{{ object.name }}</td></tr>
-<tr><td>Powered ON</td><td>{{ object.powerState }}</td></tr>
-<tr><td>CPU count</td><td>{{ object.cpuCount }}</td></tr>
-<tr><td>MB of Memory</td><td>{{ object.memoryMB }}</td></tr>
-<tr><td>Notes</td><td>{{ object.notes }}</td></tr>
-<tr><td>IP</td><td><ul>{% for ip in object.ipaddress_set.all %}<li>{{ ip.address }}</li>{% endfor %}</ul</td></tr>
-<tr><td>DataStore</td><td><a href="{% url datastore object.datastore_id %}" >{{ object.datastore }}</a></td></tr>
-<tr><td>Host</td><td><a href="{% url host object.host_id %}">{{object.host}}</a></td></tr>
-<tr><td></td><td align="right"><small>modified ({{object.created|date:"Y:z g:i a"}})</small></td></tr>
+<tr><td>vendor</td><td><a href="{{object.manufacturer.website}}">{{ object.manufacturer }}</a></td></tr>
+<tr><td>model</td><td>{{ object.model }}</td></tr>
+<tr><td>cpuCount</td><td>{{ object.cpuCount }}</td></tr>
+<tr><td>cpuTotal</td><td>{{ object.cpuTotal }}</td></tr>
+<tr><td>cpuUsage</td><td>{{ object.cpuUsage }}</td></tr>
+<tr><td>Virtual Machines</td>
+    <td><ul>{% for vm in object.virtualmachine_set.all %}
+        <li><a href="{% url  vm-detail vm.id%}">{{ vm.name }}</a></li>{% endfor %}</ul
+	</td></tr>
+<tr><td>processor</td><td>{{ object.processor}}</td></tr>
+<tr><td></td><td align="right"><small>Last modified ({{object.created|date:"Y:z g:i a"}})</small></td></tr>
 </table>
 </body>
 </html>

@@ -12,6 +12,10 @@ dstore_dict = {
 	'queryset':DataStore.objects.order_by('name'),
 }
 
+host_dict = {
+    # 'queryset':ISCNode.objects.all(),
+	'queryset':VMHost.objects.order_by('name'),
+}
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -31,4 +35,5 @@ urlpatterns = patterns('',
     url(r'^test/$', 'inventory.views.test'),
     url(r'^system/(?P<object_id>[-\w]+)/', list_detail.object_detail, dict(vm_dict, template_name='vm_detail.html'), name='vm-detail'),
 	url(r'^dstore/(?P<object_id>[-\w]+)/', list_detail.object_detail, dict(dstore_dict, template_name='datastore.html'), name='datastore'),
+	url(r'^host/(?P<object_id>[-\w]+)/', list_detail.object_detail, dict(host_dict, template_name='host.html'), name='host'),
 )
