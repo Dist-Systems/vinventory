@@ -40,6 +40,11 @@ class DataStore(ISCNode):
     freespaceMB          = models.IntegerField()
     filesystemVersion    = models.DecimalField(max_digits=3, decimal_places=2)
 
+    @staticmethod
+    # https://docs.djangoproject.com/en/1.3/topics/db/managers/
+    def create(name, capacityMB, freespaceMB, filesystemVersion):
+        return DataStore(name=name, capacityMB=capacityMB, freespaceMB=freespaceMB, filesystemVersion=filesystemVersion)
+
 
 # VMHost can hold many VirtualMachines, by making 
 # a separate class, we avoid typos
