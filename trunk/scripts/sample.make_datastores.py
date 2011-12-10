@@ -1,9 +1,7 @@
 # Full path and name to your csv file
-csv_filepathname="/Users/elihu/Desktop/vinventory/data/DataStore.csv"
-#csv_filepathname="C:\\Users\\ncspa\\Desktop\\vinventory\\data\\DataStore.csv"
+csv_filepathname="path"
 # Full path to your django project directory
-your_djangoproject_home="/Users/elihu/Desktop/vinventory/"
-#your_djangoproject_home='C:\\Users\\ncspa\\Desktop\\vinventory\\'
+your_djangoproject_home="path"
 
 import sys,os
 sys.path.append(your_djangoproject_home)
