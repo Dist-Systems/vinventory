@@ -40,8 +40,9 @@ for row in dataReader:
                 ds  = DataStore.objects.get(name = d)
                 vm.datastore.add(ds)
                 print '  added datastore ({0})'.format(d)
+
             print 'Virtual Machine ({0}) created'.format(row[0])
-            #vm.save()
+
         else:
             print 'Virtual host({0}) does not exist'.format(row[5])
     else:
