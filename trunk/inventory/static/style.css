@@ -1,0 +1,30 @@
+body{background:#88d4ff;width:900px;margin:auto;}
+
+table {
+	border-width: thin;
+	border-spacing: 2px;
+	border-style: outset;
+	border-color: gray;
+	border-collapse: collapse;
+	background-color: rgb(255, 245, 238);
+}
+table th {
+	border-width: thin;
+	padding: 4px;
+	border-style: outset;
+	border-color: gray;
+	background-color: rgb(250, 240, 230);
+	-moz-border-radius: ;
+}
+table td {
+	border-width: thin;
+	padding: 4px;
+	border-style: outset;
+	border-color: gray;
+	-moz-border-radius: ;
+}
+
+.row1{background-color: rgb(250, 240, 250);}
+.row2{background-color: rgb(210, 240, 230);}
+#chart_div{float:right;}
+#placeholder{float:right;}
