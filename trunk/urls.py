@@ -16,6 +16,7 @@ host_dict = {
     # 'queryset':ISCNode.objects.all(),
 	'queryset':VMHost.objects.order_by('name'),
 }
+
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()

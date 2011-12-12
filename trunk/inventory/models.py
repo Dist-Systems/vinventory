@@ -63,7 +63,7 @@ class VirtualMachine(ISCNode):
     cpuCount   = models.IntegerField()
     memoryMB   = models.IntegerField()
     host       = models.ForeignKey('VMHost')
-    datastore  = models.ForeignKey('DataStore')
+    datastore  = models.ManyToManyField('DataStore')
 
 # A class for Vendors, to avoid duplication
 # or typos by manual entry

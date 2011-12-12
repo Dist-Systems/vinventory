@@ -5,6 +5,5 @@ from django.http import HttpResponse
 
 
 def test(request):
-    latest_poll_list = Vendor.objects.all()[:5]
-    return render_to_response("test.html",  {'object_list': latest_poll_list},
-context_instance=RequestContext(request))	
+    latest_vendor_list = Vendor.objects.all()[:5]
+    return render_to_response("test.html",  {'object_list': latest_vendor_list}, context_instance=RequestContext(request))	
