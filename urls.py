@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.conf.urls.defaults import *
 from django.views.generic import list_detail, create_update
 from inventory.models import *
@@ -37,4 +38,5 @@ urlpatterns = patterns('',
     url(r'^system/(?P<object_id>[-\w]+)/', list_detail.object_detail, dict(vm_dict, template_name='vm_detail.html'), name='vm-detail'),
 	url(r'^dstore/(?P<object_id>[-\w]+)/', list_detail.object_detail, dict(dstore_dict, template_name='datastore.html'), name='datastore'),
 	url(r'^host/(?P<object_id>[-\w]+)/', list_detail.object_detail, dict(host_dict, template_name='host.html'), name='host'),
+	url(r'^site_media/(?P<path>.*)$', 'django.views.static.serve',{'document_root': settings.MEDIA_ROOT,'show_indexes': True }),
 )
