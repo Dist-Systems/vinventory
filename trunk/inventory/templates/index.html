@@ -1,13 +1,11 @@
+{% extends "base.html" %}
+
 {% load pagination_tags %}
-<html>
-<head>
-<title>Virtual Machines</title>
-<link rel="stylesheet" href="/site_media/style.css" type="text/css" />
-</head>
-<html>
-<h1>Virtual Machines</h1>
-<div id="chart_div"></div>
+{% block title %}Virtual Machines{% endblock title%}
+
+{% block content %}
 {% if object_list %}
+    <h1>{{object_list|length}} Virtual Machines</h1>
 	{% autopaginate object_list %}
     <table width=450>
 	<tr><td colspan="10" align="center">{% paginate %}</td></tr>
@@ -24,4 +22,4 @@
 {% else %}
     <p>No objects are available.</p>
 {% endif %}
-</html>
+{% endblock %}
