@@ -32,11 +32,16 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
-
-    url(r'^$', list_detail.object_list, dict(vm_dict, template_name='index.html'), name='homepage'),
-    url(r'^test/$', 'inventory.views.test'),
+    # index: homepage
+    #url(r'^$', list_detail.object_list, dict(vm_dict, template_name='index.html'), name='homepage'),
+    url(r'^$', 'inventory.views.homepage', name='homepage'),
+	
+	url(r'^test/$', 'inventory.views.test'),
+	url(r'^server/(?P<server_id>\d+)/$', 'inventory.views.detail'),
     url(r'^system/(?P<object_id>[-\w]+)/', list_detail.object_detail, dict(vm_dict, template_name='vm_detail.html'), name='vm-detail'),
 	url(r'^dstore/(?P<object_id>[-\w]+)/', list_detail.object_detail, dict(dstore_dict, template_name='datastore.html'), name='datastore'),
 	url(r'^host/(?P<object_id>[-\w]+)/', list_detail.object_detail, dict(host_dict, template_name='host.html'), name='host'),
+	
+	# Static media 
 	url(r'^site_media/(?P<path>.*)$', 'django.views.static.serve',{'document_root': settings.MEDIA_ROOT,'show_indexes': True }),
 )

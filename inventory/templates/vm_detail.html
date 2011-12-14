@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 {% block title %}Virtual Machine Detail{% endblock title %}
 {% block content %}
+
 <h1>{{ object.name }}</h1>
+<small>Virtual Machine</small>
+
 <table>
-<a href="{% url homepage %}" >back to homepage</a>
-<tr BGCOLOR="#cccccc"><td width="35%">Property</td><td>Value</td>
+<tr><th>Property</th><th>Value</th></tr>
 <tr><td>Name</td><td>{{ object.name }}</td></tr>
 <tr><td>Powered ON</td><td class="{{ object.powerState|yesno:"on,off,unknown" }}"><!--{{ object.powerState }}--></td></tr>
 <tr><td>CPU count</td><td>{{ object.cpuCount }}</td></tr>
@@ -21,4 +23,5 @@
 <tr><td>Host</td><td><a href="{% url host object.host_id %}">{{object.host}}</a></td></tr>
 <tr><td></td><td align="right"><small>modified ({{object.created|date:"Y:z g:i a"}})</small></td></tr>
 </table>
+
 {% endblock content %}
