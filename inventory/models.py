@@ -8,7 +8,7 @@ class ISCNode(models.Model):
         (u'dev',  u'Development'),
         (u'prod', u'Production'),
     )
-    name       = models.CharField(max_length="30",unique=True, editable=False)
+    name       = models.CharField(max_length="30",unique=True)
     notes      = models.TextField(blank=True)
     role       = models.CharField(max_length=4, choices=ROLE_CHOICES, blank=True)
     

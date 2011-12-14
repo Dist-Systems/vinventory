@@ -1,23 +1,12 @@
-"""
-This file demonstrates two different styles of tests (one doctest and one
-unittest). These will both pass when you run "manage.py test".
+from django.utils import unittest
+from inventory.models import *
 
-Replace these with more appropriate tests for your application.
-"""
+class InventoryTestCase(unittest.TestCase):
+    def setUp(self):
+        self.datastore1 = DataStore.objects.create(name="Storino",capacityMB=1024,freespaceMB=24,filesystemVersion="3.14")
 
-from django.test import TestCase
-
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.failUnlessEqual(1 + 1, 2)
-
-__test__ = {"doctest": """
-Another way to test that 1 + 1 is equal to 2.
-
->>> 1 + 1 == 2
-True
-"""}
-
+    def testAttributes(self):
+        self.assertEqual(self.datastore1.name, "Storino")
+        self.assertEqual(self.datastore1.capacityMB, 1024)
+        self.assertEqual(self.datastore1.freespaceMB, 24)
+        self.assertEqual(self.datastore1.filesystemVersion, "3.14")
