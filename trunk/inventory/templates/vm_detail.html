@@ -6,7 +6,7 @@
 <a href="{% url homepage %}" >back to homepage</a>
 <tr BGCOLOR="#cccccc"><td width="35%">Property</td><td>Value</td>
 <tr><td>Name</td><td>{{ object.name }}</td></tr>
-<tr><td>Powered ON</td><td>{{ object.powerState }}</td></tr>
+<tr><td>Powered ON</td><td class="{{ object.powerState|yesno:"on,off,unknown" }}"><!--{{ object.powerState }}--></td></tr>
 <tr><td>CPU count</td><td>{{ object.cpuCount }}</td></tr>
 <tr><td>MB of Memory</td><td>{{ object.memoryMB }}</td></tr>
 <tr><td>Notes</td><td>{{ object.notes }}</td></tr>

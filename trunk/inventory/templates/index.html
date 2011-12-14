@@ -14,7 +14,7 @@
         <tr class="{% cycle 'row1' 'row2' %}">
 		  <td><a href="{% url vm-detail object.id%}">{{ object.name }}</a></td>
 		  <td>{{ object.memoryMB }}</td><td>{{ object.cpuCount }}</td>
-		  <td BGCOLOR="{{ object.powerState|yesno:"#00FF00,#FF000,#CCCCCC" }}"><!--{{object.powerState}}--></td>
+		  <td class="{{ object.powerState|yesno:"on,off,unknown" }}"><!--{{object.powerState}}--></td>
 		</tr>
     {% endfor %}
 	<tr><td colspan="10" align="center">{% paginate %}</td></tr>
