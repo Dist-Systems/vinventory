@@ -6,12 +6,12 @@
 {% block content %}
 
 {% if server_list %}
-    <h1>{{server_list|length}} Servers</h1>
+    <h2>{{server_list|length}} Servers</h2>
     <table>
 	<tr BGCOLOR="#cccccc"><td>Server Name</td><td>Memory MB</td><td>CPUs</td></tr>
     {% for object in server_list %}
         <tr class="{% cycle 'row1' 'row2' %}">
-		  <td><a href="{% url vm-detail object.id%}">{{ object.name }}</a></td>
+		  <td><a href="{% url server-detail object.id%}">{{ object.name }}</a></td>
 		  <td>{{ object.capacityMB }}</td><td>{{ object.cpuCount }}</td>
 		</tr>
     {% endfor %}
@@ -21,12 +21,18 @@
 {% endif %}
 
 {% if vendor_list %}
-    <h1>{{vendor_list|length}} Vendors</h1>
+    <h2>{{vendor_list|length}} Vendors</h2>
     <table>
 	<tr BGCOLOR="#cccccc"><td>Vendor Name</td></tr>
     {% for object in vendor_list %}
         <tr class="{% cycle 'row1' 'row2' %}">
-		  <td><a href="{% url vm-detail object.id%}">{{ object.name }}</a></td>
+		  <td>
+		  {% if object.website %}
+			<a href="{{ object.website }}" target="new">{{ object.name }}</a>
+		  {% else %}
+		    {{ object.name }}
+		  {% endif %}
+		  </td>
 		</tr>
     {% endfor %}
     </table>
@@ -36,7 +42,7 @@
 
 
 {% if vm_list %}
-    <h1>{{vm_list|length}} Virtual Machines</h1>
+    <h2>{{vm_list|length}} Virtual Machines</h2>
     <table>
 	<tr BGCOLOR="#cccccc"><td>System Name</td><td>Memory MB</td><td>CPUs</td><td>Power State</td></tr>
     {% for object in vm_list %}
