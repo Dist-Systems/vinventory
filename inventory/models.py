@@ -28,6 +28,7 @@ class ISCNode(models.Model):
 
 # Child class of ISCNode for 'on-the-iron' servers
 class Server(ISCNode):
+
     vendor     = models.ForeignKey('Vendor')
     capacityMB = models.IntegerField()
     cpuCount   = models.PositiveSmallIntegerField()
