@@ -17,6 +17,6 @@ def homepage(request):
 		{'vendor_list': vendor_list, 'server_list':server_list, 'vm_list':vm_list}, 
 		context_instance=RequestContext(request))
 
-def detail(request, server_id):
+def server_detail(request, server_id):
     s = get_object_or_404(Server, pk=server_id)
     return render_to_response('server_detail.html', {'server': s})
