@@ -1,23 +1,28 @@
-# Full path and name to your csv file
-csv_filepathname="path"
-# Full path to your django project directory
-your_djangoproject_home="path"
+import sys,os,csv
 
-import sys,os
-sys.path.append(your_djangoproject_home)
+# Full path to your django project directory
+path = os.path.abspath('.')
+
+# Full path and name to your csv file
+csv_filepathname=path+"/data/DataStore.csv"
+
+sys.path.append(path)
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 from inventory.models import DataStore
 
-
-import csv
 dataReader = csv.DictReader(open(csv_filepathname))
 
 for row in dataReader:
+    print row['name'],
     exists = DataStore.objects.filter(name=row['name'])
     if not exists:
         #"Name","CapacityMB","FreeSpaceMB","FileSystemVersion"
         datastore = DataStore(**row)
-        datastore.save()
+        
         print '... created'
     else:
-        print "...exists"
+        #print row,"...exists",
+        exists.update(**row)
+        datastore = DataStore.objects.get(name=row['name'])
+        print "...updated"
+    datastore.save()
