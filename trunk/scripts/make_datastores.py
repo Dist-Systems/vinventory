@@ -10,7 +10,12 @@ sys.path.append(path)
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 from inventory.models import DataStore
 
-dataReader = csv.DictReader(open(csv_filepathname))
+# Define our field names, since the file doesn't match our model
+names = ('name', 'capacityMB', 'freespaceMB', 'filesystemVersion')
+dataReader = csv.DictReader(open(csv_filepathname),fieldnames=names)
+
+# Don't need the header, because the names don't match
+dataReader.next()
 
 for row in dataReader:
     print row['name'],
