@@ -14,7 +14,7 @@ import csv
 dataReader = csv.reader(open(csv_filepathname))
 Vendors = Vendor.objects.filter()
 for row in dataReader:
-  if  not (row[0].startswith('#') or (row[0] == "name")):
+  if  not (row[0].startswith('#') or (row[0] == "Name")):
     print row[1],
     if not Vendor.objects.filter(name=row[1]):
         # create vendor

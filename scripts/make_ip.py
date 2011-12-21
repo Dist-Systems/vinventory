@@ -43,6 +43,8 @@ for row in dataReader:
         new_ips = set(row['ip'].split(' '))
 		
         # Compare the sets
+        # http://docs.python.org/library/stdtypes.html#set
+        # http://docs.python.org/tutorial/datastructures.html#sets
         ips_to_remove = existing_ips - new_ips
         ips_to_add    = new_ips - existing_ips
 		
