@@ -60,10 +60,14 @@ class VMHost(ISCNode):
 # Child class of ISCNode
 class VirtualMachine(ISCNode):
     powerState = models.NullBooleanField()
-    cpuCount   = models.IntegerField()
-    memoryMB   = models.IntegerField()
+    cpuCount   = models.IntegerField(blank=True)
+    memoryMB   = models.IntegerField(blank=True)
     host       = models.ForeignKey('VMHost')
     datastore  = models.ManyToManyField('DataStore')
+    
+    @staticmethod
+    def create(name, powerState,cpuCount, memoryMB, host):
+        return VirtualMachine(name=name, powerState=powerState,cpuCount=cpuCount, memoryMB=memoryMB, host=host)
 
 # A class for Vendors, to avoid duplication
 # or typos by manual entry
