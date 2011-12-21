@@ -11,6 +11,8 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 from inventory.models import DataStore
 
 # Define our field names, since the file doesn't match our model
+# http://docs.python.org/library/csv.html#csv.DictReader
+# http://www.doughellmann.com/PyMOTW/csv/
 names = ('name', 'capacityMB', 'freespaceMB', 'filesystemVersion')
 dataReader = csv.DictReader(open(csv_filepathname),fieldnames=names)
 
