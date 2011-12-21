@@ -14,11 +14,12 @@ from inventory.models import VirtualMachine, IpAddress
 names = ('vm','ip')
 dataReader = csv.DictReader(open(csv_filepathname),fieldnames=names)
 
+# Don't need the header, because the names don't match
+dataReader.next()
+
 # For every line in the file (lines represent virtual machines)
 for row in dataReader:
 
-  # Does the line have data?
-  if  not (row['vm'] == "Name"):
     # Does this virtual machine have an associated IP?
     if row['ip'] != '':
       # Yes, there are IP address entries, proceed to process them
