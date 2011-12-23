@@ -152,9 +152,12 @@ def createVirtualMachines(datastream):
       respective virtual hosts
   '''
   for row in datastream:
-    vm, created = VirtualMachine.objects.get_or_create(name=row['Name'])
+    vm_exists= VirtualMachine.objects.filter(name=row['Name'])
 
-    if created:
+    # Populate the boolean value for the power state (any sting is True)
+    if row['PowerState'].endswith('Off'):
+      row['PowerState'] = False
+    if not vm_exists:
       # Only proceed if the virtual host exists
       if VMHost.objects.filter(name = row['VMHost']):
           # Create a new virtual machine
@@ -165,9 +168,6 @@ def createVirtualMachines(datastream):
           # http://docs.python.org/tutorial/errors.html
           raise RuntimeError(msg)
 
-      # Populate the boolean value for the power state (any sting is True)
-      if row['PowerState'].endswith('Off'):
-          row['PowerState'] = False
       vm.powerState = row['PowerState']
       vm.cpuCount   = row['NumCpu']
       vm.memoryMB   = row['MemoryMB']
@@ -186,15 +186,13 @@ def createVirtualMachines(datastream):
         vm.datastore.add(ds)
         print '  added datastore ({0})'.format(d)
 
-    # Name is the identifier, so we can't update it
-    # vm.name       = row['Name']
-    # Populate the boolean value for the power state (any sting is True)
-    if row['PowerState'].endswith('Off'):
-        row['PowerState'] = False
-    vm.powerState = row['PowerState']
-    vm.cpuCount   = row['NumCpu']
-    vm.memoryMB   = row['MemoryMB']
-    vm.notes      = row['Notes']
-    vm.host       = VMHost.objects.get(name = row['VMHost'])
-    vm.save()
+        # Name is the identifier, so we can't update it
+        # vm.name       = row['Name']
+
+        vm.powerState = row['PowerState']
+        vm.cpuCount   = row['NumCpu']
+        vm.memoryMB   = row['MemoryMB']
+        vm.notes      = row['Notes']
+        vm.host       = VMHost.objects.get(name = row['VMHost'])
+  vm.save()
   print 'updated'
