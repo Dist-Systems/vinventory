@@ -36,9 +36,9 @@ class Server(ISCNode):
 # Datastores can hold many VMHosts, by making 
 # a separate class, we avoid typos
 class DataStore(ISCNode):
-    capacityMB           = models.IntegerField()
-    freespaceMB          = models.IntegerField()
-    filesystemVersion    = models.DecimalField(max_digits=3, decimal_places=2)
+    capacityMB           = models.IntegerField(null=True, blank=True)
+    freespaceMB          = models.IntegerField(null=True, blank=True)
+    filesystemVersion    = models.DecimalField(max_digits=3, decimal_places=2, null=True, blank=True)
 
     @staticmethod
     # https://docs.djangoproject.com/en/1.3/topics/db/managers/
@@ -51,8 +51,8 @@ class DataStore(ISCNode):
 class VMHost(ISCNode):
     manufacturer = models.ForeignKey('Vendor')
     model        = models.CharField(max_length="30")
-    cpuCount     = models.PositiveSmallIntegerField(editable=False)
-    cpuTotal     = models.PositiveSmallIntegerField(editable=False)
+    cpuCount     = models.PositiveSmallIntegerField()
+    cpuTotal     = models.PositiveSmallIntegerField()
     cpuUsage     = models.PositiveSmallIntegerField(editable=False)
     processor    = models.CharField(max_length="50")
 
@@ -60,8 +60,8 @@ class VMHost(ISCNode):
 # Child class of ISCNode
 class VirtualMachine(ISCNode):
     powerState = models.NullBooleanField()
-    cpuCount   = models.IntegerField(blank=True)
-    memoryMB   = models.IntegerField(blank=True)
+    cpuCount   = models.IntegerField()
+    memoryMB   = models.IntegerField()
     host       = models.ForeignKey('VMHost')
     datastore  = models.ManyToManyField('DataStore')
     
