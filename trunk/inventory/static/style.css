@@ -12,7 +12,7 @@ width:400px;
 
 dev.pagination{	background-color: rgb(65, 118, 144);}
 
-div.pagination a, #sidebar a{color:rgb(244, 243, 121);}
+#sidebar a{color:rgb(244, 243, 121);}
 a:link, a:visited { 
 color: rgb(91, 128, 178);
 text-decoration: none;

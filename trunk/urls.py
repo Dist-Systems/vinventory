@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.conf.urls.defaults import *
+from django.views.generic.simple import direct_to_template
 
 
 # Uncomment the next two lines to enable the admin:
@@ -13,7 +14,8 @@ urlpatterns = patterns('',
 
     # index: homepage
     url(r'^$', 'inventory.views.homepage', name='homepage'),
-	
+    url(r'^contact/', 'inventory.views.contact', name='contact'),
+	  url(r'^about/', 'django.views.generic.simple.direct_to_template', {'template': 'about.html'}),
 	# inventory urls
 	url(r'^inventory/', include('inventory.urls')),
 
