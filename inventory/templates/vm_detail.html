@@ -12,7 +12,7 @@
 <tr><td>CPU count</td><td>{{ object.cpuCount }}</td></tr>
 <tr><td>MB of Memory</td><td>{{ object.memoryMB }}</td></tr>
 <tr><td>Notes</td><td>{{ object.notes }}</td></tr>
-<tr><td>IP</td><td><ul>{% for ip in object.ipaddress_set.all %}<li>{{ ip.address }}</li>{% endfor %}</ul</td></tr>
+<tr><td>IP</td><td><ul>{% for ip in object.ipaddress_set.all %}<li>{{ ip.address|slice:"8:" }}</li>{% endfor %}</ul</td></tr>
 <tr><td>DataStore</td><td>
     <ul>
     {% for ds in object.datastore.all %}
