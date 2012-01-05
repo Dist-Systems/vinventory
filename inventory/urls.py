@@ -17,7 +17,7 @@ host_dict = {
 
 urlpatterns = patterns('',
 	url(r'^server/(?P<server_id>\d+)/$', 'inventory.views.server_detail', name='server-detail'),
-    url(r'^system/(?P<object_id>[-\w]+)/', list_detail.object_detail, dict(vm_dict, template_name='vm_detail.html'), name='vm-detail'),
+  url(r'^system/(?P<object_id>[-\w]+)/', list_detail.object_detail, dict(vm_dict, template_name='vm_detail.html'), name='vm-detail'),
 	url(r'^dstore/(?P<object_id>[-\w]+)/', list_detail.object_detail, dict(dstore_dict, template_name='datastore.html'), name='datastore'),
 	url(r'^host/(?P<object_id>[-\w]+)/', list_detail.object_detail, dict(host_dict, template_name='host.html'), name='host'),
 )

@@ -4,7 +4,7 @@
 {% block title %}Virtual Machines{% endblock title%}
 
 {% block content %}
-
+ {% load pagination_tags %}
 {% if server_list %}
     <h2>{{server_list|length}} Servers</h2>
     <table>
@@ -17,7 +17,7 @@
     {% endfor %}
     </table>
 {% else %}
-    <p>No objects are available.</p>
+    <!-- <p>No Servers are available.</p>-->
 {% endif %}
 
 {% if vendor_list %}
@@ -37,12 +37,13 @@
     {% endfor %}
     </table>
 {% else %}
-    <p>No objects are available.</p>
+    <!-- <p>No vendors are available.</p>-->
 {% endif %}
 
 
 {% if vm_list %}
     <h2>{{vm_list|length}} Virtual Machines</h2>
+    {% autopaginate vm_list 5 %}
     <table>
 	<tr BGCOLOR="#cccccc"><td>System Name</td><td>Memory MB</td><td>CPUs</td><td>Power State</td></tr>
     {% for object in vm_list %}
@@ -53,8 +54,9 @@
 		</tr>
     {% endfor %}
     </table>
+    {% paginate %}
 {% else %}
-    <p>No objects are available.</p>
+    <p>No Virtual Machines are available.</p>
 {% endif %}
 
 {% endblock content%}

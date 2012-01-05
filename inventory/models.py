@@ -32,6 +32,8 @@ class Server(ISCNode):
     capacityMB = models.IntegerField()
     cpuCount   = models.PositiveSmallIntegerField()
     purchased  = models.DateTimeField(blank=True)
+    
+
 
 # Datastores can hold many VMHosts, by making 
 # a separate class, we avoid typos
