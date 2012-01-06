@@ -66,3 +66,9 @@ class InventoryTestAttributesCase(TestCase):
         self.assertEqual(self.datastore1.capacityMB, CAPACITYMB)
         self.assertEqual(self.datastore1.freespaceMB, FREESPACEMB)
         self.assertEqual(self.datastore1.filesystemVersion, "3.14")
+
+class ImportTestCase(TestCase):
+	# Testing various aspects of the data imports from csv
+	def setUp(self):
+		self.datahostfile = 'test'
+		pass
