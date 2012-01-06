@@ -1,7 +1,7 @@
 from django import forms
+from inventory.models import Server
 
-class ContactForm(forms.Form):
-    subject = forms.CharField(max_length=100)
-    message = forms.CharField()
-    sender = forms.EmailField()
-    cc_myself = forms.BooleanField(required=False)
+
+class NewServerForm(forms.ModelForm):
+    class Meta:
+        model = Server

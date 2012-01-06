@@ -10,8 +10,8 @@
     <div id="sidebar">
         {% block sidebar %}
         <ul>
-            <li><a href="/about/">about</a></li>
-            <li><a href="/admin/">admin</a></li>
+            <li><a href="{% url about %}">about</a></li>
+            <li><a href="{% url newServer %}">+ server</a></li>
         </ul>
         {% endblock sidebar%}
     </div>
