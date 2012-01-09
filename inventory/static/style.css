@@ -9,7 +9,9 @@ width:400px;
 	border-color: gray;
 	border-collapse: collapse;
 }
+.errorlist{color:red;}
 
+form p label{width:100px;display:block;float:left;}
 dev.pagination{	background-color: rgb(65, 118, 144);}
 
 #sidebar a{color:rgb(244, 243, 121);}
