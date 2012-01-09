@@ -25,14 +25,17 @@ def server_detail(request, server_id):
     return render_to_response('server_detail.html', {'server': s})
 
 def newServer(request):
+    vendor_list = Vendor.objects.all()
+    server_list = Server.objects.all()
+    vm_list = VirtualMachine.objects.all()
     if request.method == 'POST': # If the form has been submitted...
         form = NewServerForm(request.POST) # A form bound to the POST data
 
         if form.is_valid(): # All validation rules pass
             # Process the data in form.cleaned_data
             # ...
-            return HttpResponseRedirect('/inventory/system/1/') # Redirect after POST
+            #return HttpResponseRedirect('/inventory/system/1/') # Redirect after POST
+            return HttpResponseRedirect('index.html', {'vendor_list': vendor_list, 'server_list':server_list, 'vm_list':vm_list, 'error_message': "You didn't select a choice.",}, context_instance=RequestContext(request))
     else:
         form = NewServerForm() # An unbound form
-
     return render_to_response('newServer.html', { 'form': form,},  context_instance=RequestContext(request))
