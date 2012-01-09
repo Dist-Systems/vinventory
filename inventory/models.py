@@ -31,7 +31,7 @@ class Server(ISCNode):
     vendor     = models.ForeignKey('Vendor')
     capacityMB = models.IntegerField()
     cpuCount   = models.PositiveSmallIntegerField()
-    purchased  = models.DateTimeField(blank=True)
+    purchased  = models.DateTimeField(null=True, blank=True)
     
 
 
