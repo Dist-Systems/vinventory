@@ -17,6 +17,7 @@
     </div>
 
     <div id="content">
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
         {% block content %}{% endblock content%}
     </div>
 <footer>&copy; isc (information systems and computing)</footer>

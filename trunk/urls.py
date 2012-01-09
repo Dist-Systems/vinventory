@@ -14,10 +14,10 @@ urlpatterns = patterns('',
 
     # index: homepage
     url(r'^$', 'inventory.views.homepage', name='homepage'),
-    url(r'^contact/', 'inventory.views.newServer', name='newServer'),
-	url(r'^about/', 'django.views.generic.simple.direct_to_template', {'template': 'about.html'}, name='about'),
-	# inventory urls
-	url(r'^inventory/', include('inventory.urls')),
+    url(r'^create/server/', 'inventory.views.newServer', name='newServer'),
+	  url(r'^about/', 'django.views.generic.simple.direct_to_template', {'template': 'about.html'}, name='about'),
+  	# inventory urls
+  	url(r'^inventory/', include('inventory.urls')),
 
 	
 	# Static media 
