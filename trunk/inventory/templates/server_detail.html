@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Server Detail{% endblock title %}
+{% block content %}
+
+<h1>{{ server.name }}</h1>
+<small>Server</small>
+
+<table>
+<tr><th>Property</th><th>Value</th></tr>
+<tr><td>Name</td><td>{{ server.name }}</td></tr>
+<tr><td>Vendor</td><td>{{ server.vendor }}</td></tr>
+<tr><td>CPU count</td><td>{{ server.cpuCount }}</td></tr>
+<tr><td>Capacity MB</td><td>{{ server.capacityMB }}</td></tr>
+<tr><td>Notes</td><td>{{ server.notes }}</td></tr>
+<tr><td>Purchased</td><td>{{server.purchased}}</td></tr>
+<tr><td></td><td align="right"><small>modified ({{server.created|date:"Y:z g:i a"}})</small></td></tr>
+</table>
+
+{% endblock content %}
