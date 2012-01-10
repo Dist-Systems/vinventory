@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="/site_media/style.css" type="text/css" />
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>{% block title %}Distributed Systems Inventory{% endblock %}</title>
+
 </head>
 
 <body>
@@ -17,11 +18,17 @@
 <a href="{% url servers %}">servers</a>
 <a href="{% url virtual %}">virtual</a>
 </header>
+
     <div id="content">
         {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
         {% block content %}{% endblock content%}
+        <hr/>
+        
     </div>
+
+
 <footer>&copy; isc (information systems and computing)</footer>
 </div>
+
 </body>
 </html>
