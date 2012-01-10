@@ -2,23 +2,23 @@
 {% block title %}VMHost Detail{% endblock title %}
 {% block content %}
 
-<h1>{{ object.name }}</h1>
+<h1>{{ vmhost.name }}</h1>
 <small>Host</small>
 
 <table>
 <tr><th>Property</th><th>Value</th></tr>
-<tr><td>Name</td><td>{{ object.name }}</td></tr>
-<tr><td>vendor</td><td><a href="{{object.manufacturer.website}}">{{ object.manufacturer }}</a></td></tr>
-<tr><td>model</td><td>{{ object.model }}</td></tr>
-<tr><td>cpuCount</td><td>{{ object.cpuCount }}</td></tr>
-<tr><td>cpuTotal</td><td>{{ object.cpuTotal }}</td></tr>
-<tr><td>cpuUsage</td><td>{{ object.cpuUsage }}</td></tr>
+<tr><td>Name</td><td>{{ vmhost.name }}</td></tr>
+<tr><td>vendor</td><td><a href="{{vmhost.manufacturer.website}}">{{ vmhost.manufacturer }}</a></td></tr>
+<tr><td>model</td><td>{{ vmhost.model }}</td></tr>
+<tr><td>cpuCount</td><td>{{ vmhost.cpuCount }}</td></tr>
+<tr><td>cpuTotal</td><td>{{ vmhost.cpuTotal }}</td></tr>
+<tr><td>cpuUsage</td><td>{{ vmhost.cpuUsage }}</td></tr>
 <tr><td>Virtual Machines</td>
-    <td><ul>{% for vm in object.virtualmachine_set.all %}
+    <td><ul>{% for vm in vmhost.virtualmachine_set.all %}
         <li><a href="{% url  vm-detail vm.id%}">{{ vm.name }}</a></li>{% endfor %}</ul
 	</td></tr>
-<tr><td>processor</td><td>{{ object.processor}}</td></tr>
-<tr><td></td><td align="right"><small>Last modified ({{object.created|date:"Y:z g:i a"}})</small></td></tr>
+<tr><td>processor</td><td>{{ vmhost.processor}}</td></tr>
+<tr><td></td><td align="right"><small>Last modified ({{vmhost.created|date:"Y:z g:i a"}})</small></td></tr>
 </table>
 
 {% endblock content %}

@@ -2,26 +2,26 @@
 {% block title %}Virtual Machine Detail{% endblock title %}
 {% block content %}
 
-<h1>{{ object.name }}</h1>
+<h1>{{ vm.name }}</h1>
 <small>Virtual Machine</small>
 
 <table>
 <tr><th>Property</th><th>Value</th></tr>
-<tr><td>Name</td><td>{{ object.name }}</td></tr>
-<tr><td>Powered ON</td><td class="{{ object.powerState|yesno:"on,off,unknown" }}"><!--{{ object.powerState }}--></td></tr>
-<tr><td>CPU count</td><td>{{ object.cpuCount }}</td></tr>
-<tr><td>MB of Memory</td><td>{{ object.memoryMB }}</td></tr>
-<tr><td>Notes</td><td>{{ object.notes }}</td></tr>
-<tr><td>IP</td><td><ul>{% for ip in object.ipaddress_set.all %}<li>{{ ip.address|slice:"8:" }}</li>{% endfor %}</ul</td></tr>
+<tr><td>Name</td><td>{{ vm.name }}</td></tr>
+<tr><td>Powered ON</td><td class="{{ vm.powerState|yesno:"on,off,unknown" }}"><!--{{ vm.powerState }}--></td></tr>
+<tr><td>CPU count</td><td>{{ vm.cpuCount }}</td></tr>
+<tr><td>MB of Memory</td><td>{{ vm.memoryMB }}</td></tr>
+<tr><td>Notes</td><td>{{ vm.notes }}</td></tr>
+<tr><td>IP</td><td><ul>{% for ip in vm.ipaddress_set.all %}<li>{{ ip.address|slice:"8:" }}</li>{% endfor %}</ul</td></tr>
 <tr><td>DataStore</td><td>
     <ul>
-    {% for ds in object.datastore.all %}
+    {% for ds in vm.datastore.all %}
 	<li><a href="{% url datastore ds.id %}" >{{ ds.name }}</a></li>
 	{% endfor %}
 	</ul>
 	</td></tr>
-<tr><td>Host</td><td><a href="{% url host object.host_id %}">{{object.host}}</a></td></tr>
-<tr><td></td><td align="right"><small>modified ({{object.created|date:"Y:z g:i a"}})</small></td></tr>
+<tr><td>Host</td><td><a href="{% url host vm.host_id %}">{{vm.host}}</a></td></tr>
+<tr><td></td><td align="right"><small>modified ({{vm.created|date:"Y:z g:i a"}})</small></td></tr>
 </table>
 
 {% endblock content %}

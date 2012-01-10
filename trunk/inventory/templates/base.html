@@ -11,16 +11,12 @@
 <body>
 
 <div id="container">
-<header><h1><a href="{% url homepage %}">Inventory</a></h1></header>
-    <div id="sidebar">
-        {% block sidebar %}
-        <ul>
-            <li><a href="{% url about %}">about</a></li>
-            <li><a href="{% url newServer %}">+ server</a></li>
-        </ul>
-        {% endblock sidebar%}
-    </div>
-
+<header>
+<h1><a href="{% url homepage %}">Inventory</a></h1>
+<a href="{% url about %}">about</a>
+<a href="{% url servers %}">servers</a>
+<a href="{% url virtual %}">virtual</a>
+</header>
     <div id="content">
         {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
         {% block content %}{% endblock content%}
