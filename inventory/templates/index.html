@@ -2,8 +2,17 @@
 
 {% load pagination_tags %}
 {% block title %}Virtual Machines{% endblock title%}
-
+ 
 {% block content %}
+  <script language="javascript" type="text/javascript" src="/site_media/js/jquery-1.7.1.js"></script>
+	<script language="javascript" type="text/javascript" src="/site_media/js/jquery.flot.js"></script>
+  <script language="javascript" type="text/javascript" src="/site_media/js/jquery.flot.pie.js"></script>
+  <style type="text/css">
+		div.graph{width: 56em;height: 300px;}
+		label{display: block;padding-left: 1em;}
+	</style>
+<div id="default" class="graph">Graph goes here</div>
+
  {% load pagination_tags %}
 {% if server_list %}
     <h2>{{server_list|length}} Servers</h2>
@@ -41,22 +50,37 @@
 {% endif %}
 
 
-{% if vm_list %}
-    <h2>{{vm_list|length}} Virtual Machines</h2>
-    {% autopaginate vm_list 5 %}
-    <table>
-	<tr BGCOLOR="#cccccc"><td>System Name</td><td>Memory MB</td><td>CPUs</td><td>Power State</td></tr>
-    {% for object in vm_list %}
-        <tr class="{% cycle 'row1' 'row2' %}">
-		  <td><a href="{% url vm-detail object.id%}">{{ object.name }}</a></td>
-		  <td>{{ object.memoryMB }}</td><td>{{ object.cpuCount }}</td>
-		  <td class="{{ object.powerState|yesno:"on,off,unknown" }}"><!--{{object.powerState}}--></td>
-		</tr>
-    {% endfor %}
-    </table>
-    {% paginate %}
-{% else %}
-    <p>No Virtual Machines are available.</p>
-{% endif %}
+<script type="text/javascript">
+$(function () {
+	// data
+	var data = [];
+	var series = Math.floor(Math.random()*10)+1;
+	for( var i = 0; i<series; i++)
+	{
+		data[i] = { label: "Series"+(i+1), data: Math.floor(Math.random()*100)+1 }
+	}	
+	// GRAPH 8
+	$.plot($("#default"), data, 
+	{
+		series: {
+			pie: { 
+				show: true,
+				radius:395,
+				label: {
+					show: true,
+					formatter: function(label, series){
+						return '<div style="font-size:8pt;text-align:center;padding:2px;color:white;">'+label+'<br/>'+Math.round(series.percent)+'%</div>';
+					},
+					threshold: 0.1
+				}
+			}
+		},
+		legend: {
+			show: false
+		}
+	});
+
+});
+</script>
 
 {% endblock content%}
