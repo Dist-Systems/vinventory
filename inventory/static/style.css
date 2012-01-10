@@ -202,7 +202,8 @@ table { border-collapse: collapse; border-spacing: 0; }
    ========================================================================== */
 
 html {background: #444;}
-body{ width:60em; margin:0 auto;background:#eee;box-shadow: 0 0 1em #000;}  
+body{ width:60em; margin:0 auto;background:#eee;box-shadow: 0 0 1em #000;-moz-border-radius: 35px;
+ border-radius: 35px;}  
 #container{padding: 2em;}
 
 header{margin 2em o;border-bottom:1px dotted;padding-bottom:1em; text-align:center;}
