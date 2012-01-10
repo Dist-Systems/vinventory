@@ -200,12 +200,18 @@ table { border-collapse: collapse; border-spacing: 0; }
    Primary styles
    Author: 
    ========================================================================== */
-   
-body{background:#fff;width:600px;margin:auto;}
+
+html {background: #444;}
+body{ width:60em; margin:0 auto;background:#eee;box-shadow: 0 0 1em #000;}  
+#container{padding: 2em;}
+
+header{margin 2em o;border-bottom:1px dotted;padding-bottom:1em; text-align:center;}
+header a{font-size:2em 0;padding:0.25em 0.5em;}
+header a:hoover{background #ccc;border:0;}
 
 table {
-width:400px;
-    margin:25px;
+  width:50em;
+  margin:25px;
 	border-width: thin;
 	border-spacing: 2px;
 	border-style: outset;
@@ -217,11 +223,23 @@ width:400px;
 form p label{width:100px;display:block;float:left;}
 dev.pagination{	background-color: rgb(65, 118, 144);}
 
+#sidebar{width:150px;  
+  float:right;
+  background: rgb(65, 118, 144);
+	border-width: thin;
+	border-spacing: 2px;
+	border-style: outset;
+	border-color: gray;
+	border-collapse: collapse;
+}
 #sidebar a{color:rgb(244, 243, 121);}
+#sidebar ul{margin:0;padding:0;width:100%;}
+#sidebar li{list-style-type:none;margin:5px;width:100%;padding:0;display:block;}
+
 a:link, a:visited { 
-color: rgb(91, 128, 178);
-text-decoration: none;
- }
+  color: rgb(91, 128, 178);
+  text-decoration: none;
+}
  
 table th {
 	border-width: thin;
@@ -229,43 +247,30 @@ table th {
 	border-style: outset;
 	border-color: gray;
 	background-color: rgb(65, 118, 144);
-	-moz-border-radius: ;
+	-moz-border-radius: 2;
 }
 table td {
 	border-width: thin;
 	padding: 4px;
 	border-style: outset;
 	border-color: gray;
-	-moz-border-radius: ;
+	-moz-border-radius: 2;
 }
 
 .row1{background-color: rgb(250, 250, 250);}
 .row2{background-color: rgb(210, 240, 230);}
 
-#sidebar{width:150px;
-    float:right;
-    background: rgb(65, 118, 144);
-	border-width: thin;
-	border-spacing: 2px;
-	border-style: outset;
-	border-color: gray;
-	border-collapse: collapse;
-}
-/*#sidebar a{color:#fff;}*/
-#sidebar ul{margin:0;padding:0;width:100%;}
-#sidebar li{list-style-type:none;margin:5px;width:100%;padding:0;display:block;}
 
 /* Power state */
 tr .on{background:#5f5;}
 tr .off{background:#f55;}
 tr .unknown{background:#ccc;}
 
-
-
 #placeholder{float:right;}
 
 
-
+footer{text-align:center; margin:2em 0 1em 0;}
+footer p{font-size:0.9em;}
 
 
 

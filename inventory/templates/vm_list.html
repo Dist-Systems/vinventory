@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% load pagination_tags %}
+{% block title %}Virtual Machines{% endblock title%}
+
+{% block content %}
+{% if vm_list %}
+    <h2>{{vm_list|length}} Virtual Machines</h2>
+    {% autopaginate vm_list 25 %}
+    <table>
+	<tr BGCOLOR="#cccccc"><td>System Name</td><td>Memory MB</td><td>CPUs</td><td>Power State</td></tr>
+    {% for object in vm_list %}
+        <tr class="{% cycle 'row1' 'row2' %}">
+		  <td><a href="{% url vm-detail object.id%}">{{ object.name }}</a></td>
+		  <td>{{ object.memoryMB }}</td><td>{{ object.cpuCount }}</td>
+		  <td class="{{ object.powerState|yesno:"on,off,unknown" }}"><!--{{object.powerState}}--></td>
+		</tr>
+    {% endfor %}
+    </table>
+    {% paginate %}
+{% else %}
+    <p>No Virtual Machines are available.</p>
+{% endif %}
+
+{% endblock content%}

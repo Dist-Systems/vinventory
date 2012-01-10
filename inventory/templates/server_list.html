@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% load pagination_tags %}
+{% block title %}Virtual Machines{% endblock title%}
+
+{% block content %}
+ {% load pagination_tags %}
+{% if server_list %}
+    <h2>{{server_list|length}} Servers</h2>
+    <table>
+	<tr BGCOLOR="#cccccc"><td>Server Name</td><td>Memory MB</td><td>CPUs</td></tr>
+    {% for object in server_list %}
+        <tr class="{% cycle 'row1' 'row2' %}">
+		  <td><a href="{% url server-detail object.id%}">{{ object.name }}</a></td>
+		  <td>{{ object.capacityMB }}</td><td>{{ object.cpuCount }}</td>
+		</tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <p>No Servers are available.</p>
+{% endif %}
+{% endblock content %}
