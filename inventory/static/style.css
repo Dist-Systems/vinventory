@@ -202,7 +202,7 @@ table { border-collapse: collapse; border-spacing: 0; }
    ========================================================================== */
 
 html {background: #444;}
-body{ width:60em; margin:0 auto;background:#eee;box-shadow: 0 0 1em #000;-moz-border-radius: 35px;
+body{ width:60em; margin:1em auto;background:#eee;box-shadow: 0 0 1em #000;-moz-border-radius: 35px;
  border-radius: 35px;}  
 #container{padding: 2em;}
 
