@@ -28,10 +28,12 @@ class ISCNode(models.Model):
 
 # Child class of ISCNode for 'on-the-iron' servers
 class Server(ISCNode):
-    vendor     = models.ForeignKey('Vendor')
-    capacityMB = models.IntegerField()
-    cpuCount   = models.PositiveSmallIntegerField()
-    purchased  = models.DateTimeField(null=True, blank=True)
+    vendor      = models.ForeignKey('Vendor')
+    capacityMB  = models.IntegerField()
+    cpuCount    = models.PositiveSmallIntegerField()
+    purchased   = models.DateTimeField(null=True, blank=True)
+    seialNumber = models.CharField(max_length="80", null=True, blank=True)
+    warranty    = models.DateTimeField(null=True, blank=True)
     
 
 
