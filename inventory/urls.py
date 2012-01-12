@@ -26,7 +26,7 @@ server_dict = {
 
 urlpatterns = patterns('',
 	url(r'^list/servers/$', list_detail.object_list, dict(server_dict,template_name='server_list.html'), name='servers'),
-	url(r'^server/(?P<server_id>\d+)/$', 'inventory.views.server_detail', name='server-detail'),
+	url(r'^server/(?P<object_id>[-\w]+)/', list_detail.object_detail, dict(server_dict, template_name='server_detail.html'), name='server-detail'),
 	url(r'^create/server/', 'inventory.views.newServer', name='newServer'),
 	
 	url(r'^virtual/$', list_detail.object_list, dict(vm_dict,template_name='vm_list.html'), name='virtual'),

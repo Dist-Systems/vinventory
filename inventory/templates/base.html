@@ -3,7 +3,9 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<link rel="stylesheet" href="/site_media/pre.css" type="text/css" />
   <link rel="stylesheet" href="/site_media/style.css" type="text/css" />
+  <link rel="stylesheet" href="/site_media/post.css" type="text/css" />
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>{% block title %}Distributed Systems Inventory{% endblock %}</title>
 
@@ -14,9 +16,15 @@
 <div id="container">
 <header>
 <h1><a href="{% url homepage %}">Inventory</a></h1>
+<div id="navigation">
 <a href="{% url about %}">about</a>
 <a href="{% url servers %}">servers</a>
 <a href="{% url virtual %}">virtual</a>
+</div>
+
+{% block subnav %}{% endblock subnav %}
+
+
 </header>
 
     <div id="content">
