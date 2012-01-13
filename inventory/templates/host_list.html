@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Virtual Machines{% endblock title%}
+{% block subnav %}{% include "virtual_nav.html" %}{% endblock subnav %}
+{% block content %}
+{% if vmhost_list %}
+    <h2>{{vmhost_list|length}} Virtual Machine Hosts</h2>
+    <table>
+	<tr BGCOLOR="#cccccc"><td>System Name</td><td>CPU total</td><td>CPUs</td></tr>
+    {% for object in vmhost_list %}
+        <tr class="{% cycle 'row1' 'row2' %}">
+		  <td><a href="{% url host object.id%}">{{ object.name }}</a></td>
+		  <td>{{ object.cpuTotal }}</td><td>{{ object.cpuCount }}</td>
+		</tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <p>No Virtual Machines are available.</p>
+{% endif %}
+
+{% endblock content%}
