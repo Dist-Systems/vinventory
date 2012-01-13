@@ -29,10 +29,12 @@ urlpatterns = patterns('',
 	url(r'^server/(?P<object_id>[-\w]+)/', list_detail.object_detail, dict(server_dict, template_name='server_detail.html'), name='server-detail'),
 	url(r'^create/server/', 'inventory.views.newServer', name='newServer'),
 	
-	url(r'^virtual/$', list_detail.object_list, dict(vm_dict,template_name='vm_list.html'), name='virtual'),
-	
+	url(r'^virtual/$', list_detail.object_list, dict(vm_dict,template_name='vm_list.html'), name='virtual'),	
 	url(r'^vm/(?P<object_id>[-\w]+)/', list_detail.object_detail, dict(vm_dict, template_name='vm_detail.html'), name='vm-detail'),
 	
+	url(r'^list/datastores/$', list_detail.object_list, dict(dstore_dict,template_name='datastore_list.html'), name='datastores'),
 	url(r'^dstore/(?P<object_id>[-\w]+)/', list_detail.object_detail, dict(dstore_dict, template_name='datastore.html'), name='datastore'),
+	
+	url(r'^list/hosts/$', list_detail.object_list, dict(host_dict,template_name='host_list.html'), name='hosts'),
 	url(r'^host/(?P<object_id>[-\w]+)/', list_detail.object_detail, dict(host_dict, template_name='host.html'), name='host'),
 )
