@@ -2,7 +2,7 @@
 
 {% load pagination_tags %}
 {% block title %}Virtual Machines{% endblock title%}
-
+{% block subnav %}{% include "virtual_nav.html" %}{% endblock subnav %}
 {% block content %}
 {% if vm_list %}
     <h2>{{vm_list|length}} Virtual Machines</h2>

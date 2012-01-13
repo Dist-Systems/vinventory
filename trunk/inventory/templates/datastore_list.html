@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Datastores{% endblock title%}
+{% block subnav %}{% include "virtual_nav.html" %}{% endblock subnav %}
+{% block content %}
+{% if dstore_list %}
+    <h2>{{dstore_list|length}} Datastores</h2>
+    <table>
+	<tr BGCOLOR="#cccccc"><td>System Name</td><td>Capacity</td><td>Free Space</td></tr>
+    {% for object in dstore_list %}
+        <tr class="{% cycle 'row1' 'row2' %}">
+		  <td><a href="{% url datastore object.id%}">{{ object.name }}</a></td>
+		  <td>{{ object.capacityMB }}</td><td>{{ object.freespaceMB }}</td>
+		</tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <p>No Virtual Machines are available.</p>
+{% endif %}
+
+{% endblock content%}
