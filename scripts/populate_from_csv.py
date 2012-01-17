@@ -6,24 +6,30 @@ path = os.path.abspath('.')
 sys.path.append(path)
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 
-from inventory.utils import *
+from inventory.utils import createDataStores, createVirtualHosts, createVirtualMachines, createIPs 
 
-datastore_file  = path+"/data/DataStore.csv"
-datastore_names = ('name', 'capacityMB', 'freespaceMB', 'filesystemVersion')
-d = openDataSource(datastore_file, datastore_names)
-createDataStores(d)
+def ds():
+  datastore_file  = path+"/data/DataStore.csv"
+  datastore_names = ('name', 'capacityMB', 'freespaceMB', 'filesystemVersion')
+  createDataStores(datastore_file, datastore_names)
 
-vmhost_file  = path+'/data/VMHost.csv'
-vmhost_names = ('Name','Manufacturer','Model','NumCpu','CpuTotalMhz','CpuUsageMhz','ProcessorType')
-d = openDataSource(vmhost_file, vmhost_names)
-createVirtualHosts(d)
+def vmh():
+  vmhost_file  = path+'/data/VMHost.csv'
+  vmhost_names = ('Name','Manufacturer','Model','NumCpu','CpuTotalMhz','CpuUsageMhz','ProcessorType')
+  createVirtualHosts(vmhost_file, vmhost_names)
 
-vm_file  = path+'/data/VirtualMachine.csv'
-vm_names = ('Name','PowerState','NumCpu','MemoryMB','Notes','VMHost','Datastore')
-d = openDataSource(vm_file, vm_names)
-createVirtualMachines(d)
+def vm():
+  vm_file  = path+'/data/VirtualMachine.csv'
+  vm_names = ('Name','PowerState','NumCpu','MemoryMB','Notes','VMHost','Datastore')
+  createVirtualMachines(vm_file, vm_names)
 
-ip_file  = path+"/data/IpAddress.csv"
-ip_names =  ('vm','ip')
-d = openDataSource(ip_file, ip_names)
-createIPs(d)
+def ip():
+  ip_file  = path+"/data/IpAddress.csv"
+  ip_names =  ('vm','ip')
+  createIPs(ip_file, ip_names)
+
+if __name__ == '__main__':
+  ds()
+  #vmh()
+  #vm()
+  #ip()

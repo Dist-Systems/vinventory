@@ -2,28 +2,30 @@ from django.db import models
 from inventory.models import VirtualMachine, VMHost, DataStore, Vendor, IpAddress
 import sys,os,csv
 
-def openDataSource(file_path, names=None):
+def openDataSource(file_path, names):
   ''' Opens a file for reading and returns an open file stream 
       which can be looped over, or stepped through. Each line 
       is a dictionary
-      - file_path - must be a valid absolute path to a readable
+      @param file_path - must be a valid absolute path to a readable
         file
-      - names (optional) - a tuple of column names, if none is 
-        provided,  the first column is assumed to have the column
-        headers. If parameter is present, the first line (assumed 
-        to be the header) is skipped.
+      @param names - a tuple of column names
   '''
+  count = len(open(file_path).read().splitlines())
   stream = open(file_path)
-  dataReader = csv.DictReader((stream), fieldnames=names)
+  dataReader = csv.DictReader(open(file_path), fieldnames=names)
   
   # Don't need the header, because the names don't match
   dataReader.next()
-  return dataReader
+  return ((count-1), dataReader)
 
-def createDataStores(datastream):
+def createDataStores(file_path, names):
   ''' Given the datastream provided by openDataStream(), this method 
       creates datastore objects
   '''
+  # Open the datastream and get a line count
+  records, datastream = openDataSource(file_path, names)
+
+  i = 2
   for row in datastream:
       print row['name'],
       exists = DataStore.objects.filter(name=row['name'])
@@ -37,13 +39,17 @@ def createDataStores(datastream):
           exists.update(**row)
           datastore = DataStore.objects.get(name=row['name'])
           print "...updated"
+      i += 1
       datastore.save()
   
-def createVirtualHosts(datastream):
+def createVirtualHosts(file_path, names):
   ''' Given the datastream provided by openDataStream(), this method 
       creates virtual host objects, linked with their respective 
       hardware manufacturer
   '''
+  # Open the datastream and get a line count
+  records, datastream = openDataSource(file_path, names)
+
   # For every line in the file (lines represent Virtual Machine Hosts)
   for row in datastream:
       print row['Manufacturer'],
@@ -82,10 +88,13 @@ def createVirtualHosts(datastream):
       vmh.save()
   print 'updated'
 
-def createIPs(datastream):
+def createIPs(file_path, names):
   ''' Given the datastream provided by openDataStream(), this method 
       creates IP objects which belong to virtual machines
   '''
+  # Open the datastream and get a line count
+  records, datastream = openDataSource(file_path, names)
+
   for row in datastream:
     # Does this virtual machine have an associated IP?
     if row['ip'] != '':
@@ -146,11 +155,14 @@ def createIPs(datastream):
         msg = 'Virtual Machine {0} doesn\'t exist!'.format(row[0])
         raise RuntimeError(msg)
 
-def createVirtualMachines(datastream):
+def createVirtualMachines(file_path, names):
   ''' Given the datastream provided by openDataStream(), this method 
       creates virtual machine objects, which are linked to their 
       respective virtual hosts
   '''
+  # Open the datastream and get a line count
+  records, datastream = openDataSource(file_path, names)
+
   for row in datastream:
     vm_exists= VirtualMachine.objects.filter(name=row['Name'])
 
@@ -180,7 +192,7 @@ def createVirtualMachines(datastream):
         vm = VirtualMachine.objects.get(name=row['Name'])
 
     # The following is performed on existing or newly created VMs
-    # Seek out the data store, this eliminates blanks
+    # Seek out the data store, it's required to save the vm
     for d in row['Datastore'].split(' '):
         ds  = DataStore.objects.get(name = d)
         vm.datastore.add(ds)

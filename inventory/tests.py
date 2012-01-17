@@ -1,7 +1,9 @@
 #from django.utils import unittest
 #import unittest
+import os
 from django.test import TestCase
 from inventory.models import Server, DataStore, VMHost, VirtualMachine, Vendor, IpAddress
+from inventory.utils import createDataStores, createVirtualHosts, createVirtualMachines, createIPs, openDataSource
 from datetime import datetime
 
 # https://docs.djangoproject.com/en/dev/topics/testing/
@@ -42,33 +44,41 @@ class Util:
 
     @staticmethod
     def new_vmhost():
-	    pass
+        pass
 
-class InventoryTestAttributesCase(TestCase):
-	# Perhaps we should consider http://docs.python.org/library/functions.html#hasattr
-	# for these simple tests
-    def setUp(self):
-        self.vendor = Util.new_vendor(name='Vendorino', website='http://venderino.com')
-        self.datastore1 = Util.new_datastore("Storino")
-        self.server1 = Util.new_server('Serverino', self.vendor)
-
-    def testVendorAttributes(self):
-        self.assertEqual(self.vendor.name, "Vendorino")
-
-    def testServerAttributes(self):
-        self.assertEqual(self.server1.name, "Serverino")
-        self.assertEqual(self.server1.capacityMB, CAPACITYMB)
-        self.assertEqual(self.server1.vendor, self.vendor)
-        self.assertEqual(self.server1.purchased, DATETIME)
-
-    def testDataStoreAttributes(self):
-        self.assertEqual(self.datastore1.name, "Storino")
-        self.assertEqual(self.datastore1.capacityMB, CAPACITYMB)
-        self.assertEqual(self.datastore1.freespaceMB, FREESPACEMB)
-        self.assertEqual(self.datastore1.filesystemVersion, "3.14")
-
+#class InventoryTestAttributesCase(TestCase):
+#    # Perhaps we should consider http://docs.python.org/library/functions.html#hasattr
+#    # for these simple tests
+#    fixtures = ['ds']
+#    def setUp(self):
+#        self.vendor = Util.new_vendor(name='Vendorino', website='http://venderino.com')
+#        self.datastore1 = Util.new_datastore("Storino")
+#        self.server1 = Util.new_server('Serverino', self.vendor)
+#
+#    def testVendorAttributes(self):
+#        self.assertEqual(self.vendor.name, "Vendorino")
+#
+#    def testServerAttributes(self):
+#        self.assertEqual(self.server1.name, "Serverino")
+#        self.assertEqual(self.server1.capacityMB, CAPACITYMB)
+#        self.assertEqual(self.server1.vendor, self.vendor)
+#        self.assertEqual(self.server1.purchased, DATETIME)
+#
+#    def testDataStoreAttributes(self):
+#        self.assertEqual(self.datastore1.name, "Storino")
+#        self.assertEqual(self.datastore1.capacityMB, CAPACITYMB)
+#        self.assertEqual(self.datastore1.freespaceMB, FREESPACEMB)
+#        self.assertEqual(self.datastore1.filesystemVersion, "3.14")
+#
 class ImportTestCase(TestCase):
-	# Testing various aspects of the data imports from csv
-	def setUp(self):
-		self.datahostfile = 'test'
-		pass
+    fixtures = ['ds']
+    
+    # Testing various aspects of the data imports from csv
+    def setUp(self):
+        self.datahostfile = path = os.path.abspath('.')+"/data/VirtualMachine.csv"
+        vm_names = ('Name','PowerState','NumCpu','MemoryMB','Notes','VMHost','Datastore')
+        d = openDataSource(self.datahostfile, vm_names)
+        
+    def testImport(self):
+        s = DataStore.objects.get(pk=1)
+        self.assertEquals(s.name, "datastore-1")
