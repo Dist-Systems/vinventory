@@ -2,7 +2,7 @@
 
 {% load pagination_tags %}
 {% block title %}Virtual Machines{% endblock title%}
- {% block subnav %}<a href="{% url newServer %}">new server</a>{% endblock subnav %}
+ {% block subnav %}<a href="{% url new-server %}">new server</a>{% endblock subnav %}
 {% block content %}
  {% load pagination_tags %}
 {% if server_list %}
