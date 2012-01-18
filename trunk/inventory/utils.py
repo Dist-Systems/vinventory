@@ -2,6 +2,16 @@ from django.db import models
 from inventory.models import VirtualMachine, VMHost, DataStore, Vendor, IpAddress
 import sys,os,csv
 
+def clearAll(model):
+  ''' Opens a file for reading and returns an open file stream 
+      which can be looped over, or stepped through. Each line 
+      is a dictionary
+      @param model - the model to clear
+  '''
+  count = len(open(file_path).read().splitlines())
+  stream = open(file_path)
+  dataReader = csv.DictReader(open(file_path), fieldnames=names)
+
 def openDataSource(file_path, names):
   ''' Opens a file for reading and returns an open file stream 
       which can be looped over, or stepped through. Each line 
@@ -10,11 +20,13 @@ def openDataSource(file_path, names):
         file
       @param names - a tuple of column names
   '''
+  # The count is assuming that the first line in the file is the header
   count = len(open(file_path).read().splitlines())
   stream = open(file_path)
   dataReader = csv.DictReader(open(file_path), fieldnames=names)
   
   # Don't need the header, because the names don't match
+  # Skipping this line
   dataReader.next()
   return ((count-1), dataReader)
 
@@ -25,7 +37,7 @@ def createDataStores(file_path, names):
   # Open the datastream and get a line count
   records, datastream = openDataSource(file_path, names)
 
-  i = 2
+  i = 0
   for row in datastream:
       print row['name'],
       exists = DataStore.objects.filter(name=row['name'])
@@ -41,6 +53,8 @@ def createDataStores(file_path, names):
           print "...updated"
       i += 1
       datastore.save()
+  result =(i == records)
+  assert result, "record count {0} does not match the count of records processed {1}".format(records,i)
   
 def createVirtualHosts(file_path, names):
   ''' Given the datastream provided by openDataStream(), this method 
@@ -50,6 +64,7 @@ def createVirtualHosts(file_path, names):
   # Open the datastream and get a line count
   records, datastream = openDataSource(file_path, names)
 
+  i = 0
   # For every line in the file (lines represent Virtual Machine Hosts)
   for row in datastream:
       print row['Manufacturer'],
@@ -86,7 +101,10 @@ def createVirtualHosts(file_path, names):
       vmh.cpuUsage     = row['CpuUsageMhz']
       vmh.processor    = row['ProcessorType']
       vmh.save()
-  print 'updated'
+      i += 1
+      print 'updated'
+  result =(i == records)
+  assert result, "record count {0} does not match the count of records processed {1}".format(records,i)
 
 def createIPs(file_path, names):
   ''' Given the datastream provided by openDataStream(), this method 
@@ -162,7 +180,7 @@ def createVirtualMachines(file_path, names):
   '''
   # Open the datastream and get a line count
   records, datastream = openDataSource(file_path, names)
-
+  i = 0
   for row in datastream:
     vm_exists= VirtualMachine.objects.filter(name=row['Name'])
 
@@ -196,7 +214,7 @@ def createVirtualMachines(file_path, names):
     for d in row['Datastore'].split(' '):
         ds  = DataStore.objects.get(name = d)
         vm.datastore.add(ds)
-        print '  added datastore ({0})'.format(d)
+        print '  added datastore ({0})'.format(d),
 
         # Name is the identifier, so we can't update it
         # vm.name       = row['Name']
@@ -206,5 +224,9 @@ def createVirtualMachines(file_path, names):
         vm.memoryMB   = row['MemoryMB']
         vm.notes      = row['Notes']
         vm.host       = VMHost.objects.get(name = row['VMHost'])
-  vm.save()
-  print 'updated'
+    vm.save()
+    print 'updated'
+    i += 1
+  result = (i == records)
+  assert result, "record count {0} does not match the count of records processed {1}".format(records,i)    
+  
