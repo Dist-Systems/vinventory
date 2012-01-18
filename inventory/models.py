@@ -32,8 +32,9 @@ class Server(ISCNode):
     capacityMB  = models.IntegerField()
     cpuCount    = models.PositiveSmallIntegerField()
     purchased   = models.DateTimeField(null=True, blank=True)
-    seialNumber = models.CharField(max_length="80", null=True, blank=True)
+    sccTag      = models.CharField(max_length="80", null=True, blank=True)
     warranty    = models.DateTimeField(null=True, blank=True)
+    po          = models.CharField(max_length="7", null=True, blank=True)
     
 
 

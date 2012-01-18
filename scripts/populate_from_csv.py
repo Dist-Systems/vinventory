@@ -30,6 +30,6 @@ def ip():
 
 if __name__ == '__main__':
   ds()
-  #vmh()
-  #vm()
-  #ip()
+  vmh()
+  vm()
+  ip()
