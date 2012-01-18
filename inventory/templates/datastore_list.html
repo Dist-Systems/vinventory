@@ -6,12 +6,12 @@
 {% if dstore_list %}
     <h2>{{dstore_list|length}} Datastores</h2>
     <table>
-	<tr BGCOLOR="#cccccc"><td>System Name</td><td>Capacity</td><td>Free Space</td></tr>
+	<tr BGCOLOR="#cccccc"><td>System Name</td><td>Capacity</td><td>Free Space</td><td>Used Space</td></tr>
     {% for object in dstore_list %}
-        <tr class="{% cycle 'row1' 'row2' %}">
+    <tr class="{% cycle 'row1' 'row2' %}">
 		  <td><a href="{% url datastore object.id%}">{{ object.name }}</a></td>
-		  <td>{{ object.capacityMB }}</td><td>{{ object.freespaceMB }}</td>
-		</tr>
+		  <td>{{ object.capacityMB }}</td><td>{{ object.freespaceMB }}</td><td><div style="width:{{ object.percentUtilized }}%;background:orange;">&nbsp;</div></td>
+		</tr>		
     {% endfor %}
     </table>
 {% else %}

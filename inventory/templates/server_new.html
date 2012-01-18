@@ -2,7 +2,7 @@
 
 {% block content%}
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-<form action="{% url newServer %}" method="post">{% csrf_token %}
+<form action="{% url new-server %}" method="post">{% csrf_token %}
 {{ form.as_p }}
 <td rowspan=2><input type="submit" value="Submit" />
 </form>

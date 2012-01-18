@@ -41,14 +41,21 @@ class Server(ISCNode):
 # Datastores can hold many VMHosts, by making 
 # a separate class, we avoid typos
 class DataStore(ISCNode):
-    capacityMB           = models.IntegerField(null=True, blank=True)
-    freespaceMB          = models.IntegerField(null=True, blank=True)
+    capacityMB           = models.IntegerField()
+    freespaceMB          = models.IntegerField()
+    usedMB               = models.IntegerField()
+    percentUtilized      = models.IntegerField()
     filesystemVersion    = models.DecimalField(max_digits=3, decimal_places=2, null=True, blank=True)
 
     @staticmethod
     # https://docs.djangoproject.com/en/1.3/topics/db/managers/
     def create(name, capacityMB, freespaceMB, filesystemVersion):
-        return DataStore(name=name, capacityMB=capacityMB, freespaceMB=freespaceMB, filesystemVersion=filesystemVersion)
+        usedMB = int(capacityMB) - int(freespaceMB)
+        if (usedMB > 0):
+          percentUtilized = (usedMB/float(capacityMB))*100
+        else:
+          percentUtilized = 0
+        return DataStore(name=name, capacityMB=capacityMB, freespaceMB=freespaceMB, filesystemVersion=filesystemVersion, usedMB=usedMB, percentUtilized=percentUtilized)
 
 
 # VMHost can hold many VirtualMachines, by making 

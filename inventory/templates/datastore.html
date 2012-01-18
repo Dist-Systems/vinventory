@@ -1,7 +1,17 @@
 {% extends "base.html" %}
+
 {% block title %}DataStore Detail{% endblock title %}
+
 {% block subnav %}{% include "virtual_nav.html" %}{% endblock subnav %}
+
 {% block content %}
+  <script language="javascript" type="text/javascript" src="/site_media/js/jquery-1.7.1.js"></script>
+	<script language="javascript" type="text/javascript" src="/site_media/js/jquery.flot.js"></script>
+  <script language="javascript" type="text/javascript" src="/site_media/js/jquery.flot.pie.js"></script>
+  <style type="text/css">
+		div.graph{width: 56em;height: 300px;}
+		label{display: block;padding-left: 1em;}
+	</style>
 
 <h1>{{ dstore.name }}</h1>
 <small>datastore</small>
@@ -18,5 +28,37 @@
 	</td></tr>
 <tr><td></td><td align="right"><small>Last modified ({{dstore.created|date:"Y:z g:i a"}})</small></td></tr>
 </table>
+<div id="default" class="graph">Graph goes here</div>
 
+<script type="text/javascript">
+$(function () {
+  var free = {{ dstore.freespaceMB }}
+  var used = {{ dstore.capacityMB }} - free
+	var d1 = [
+    { label: "used",  data: used},
+		{ label: "available",  data: free},  
+  ];
+                        
+    $.plot($("#default"), d1, 
+    {
+         series: {
+             pie: { 
+                 show: true,
+                 radius: 1,
+                 label: {
+                     show: true,
+                     radius: 3/4,
+                     formatter: function(label, series){
+                         return '<div style="font-size:8pt;text-align:center;padding:2px;color:white;">'+label+'<br/>'+Math.round(series.percent)+'%</div>';
+                     },
+                     background: { opacity: 0.5 }
+                 }
+             }
+         },
+         legend: {
+             show: false
+         }
+    });
+});
+</script>
 {% endblock content %}
