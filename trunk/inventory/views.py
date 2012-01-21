@@ -43,7 +43,7 @@ def editServer(request, server_id):
         # All validation rules pass
         if form.is_valid(): 
             form.save()
-            # Redirect after POST
+            # Redirect after POST (to guard from accidentally reposting)
             return HttpResponseRedirect('/')
              
     # The form has not been submitted, it's a GET request 
@@ -54,28 +54,3 @@ def editServer(request, server_id):
             'server_edit.html', 
             { 'form': form, 'server_id':server.id},  
             context_instance=RequestContext(request))
-
-
-def contact_detail(request, contact_id):
-    contact = get_object_or_404(Contact, pk=contact_id)
-    PhoneNumberInlineFormSet = inlineformset_factory(Contact, PhoneNumber, max_num=3)
-
-    if request.method == 'POST':
-        cform = ContactForm(request.POST, instance=contact)
-        classificationformset = ClassificationInlineFormSet(request.POST, request.FILES, instance=contact)
-        addressformset = AddressInlineFormSet(request.POST, request.FILES, instance=contact)
-        phonenumberformset = PhoneNumberInlineFormSet(request.POST, request.FILES, instance=contact)
-        if cform.is_valid() and phonenumberformset.is_valid():
-            contact = cform.save()
-            phonenumberformset.save()
-
-            request.user.message_set.create(message='The contact "%s" was chanced successfully.' % contact.__str__())
-            return HttpResponseRedirect("/crm/contacts/?oby=1")
-    else:
-        cform = ContactForm(instance=contact)
-        phonenumberformset = PhoneNumberInlineFormSet(instance=contact)
-
-    return render_to_response(
-        'crm/contact_detail.html',
-        {'cform': cform, 'phonenumberformset': phonenumberformset,},
-        context_instance = RequestContext(request),)

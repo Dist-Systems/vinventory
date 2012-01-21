@@ -2,6 +2,7 @@
 #import unittest
 import os
 from django.test import TestCase
+from django.core.management import call_command
 from inventory.models import Server, DataStore, VMHost, VirtualMachine, Vendor, IpAddress
 from inventory.utils import createDataStores, createVirtualHosts, createVirtualMachines, createIPs, openDataSource
 from datetime import datetime
@@ -35,10 +36,12 @@ class Util:
 
     @staticmethod
     def new_datastore(name):
-      capacityMB=CAPACITYMB
-      freespaceMB=FREESPACEMB
-      filesystemVersion="3.14"
-      datastore = DataStore(name=name,capacityMB=capacityMB,freespaceMB=freespaceMB,filesystemVersion=filesystemVersion)
+      ds = {}
+      ds['name']             = name
+      ds['capacityMB']       = CAPACITYMB
+      ds['freespaceMB']      = FREESPACEMB
+      ds['filesystemVersion']= "3.14"
+      datastore = DataStore.create(**ds)
       datastore.save()
       return datastore
 
@@ -48,6 +51,7 @@ class InventoryTestAttributesCase(TestCase):
     # for these simple tests
     fixtures = ['ds']
     def setUp(self):
+        call_command('loaddata', 'inventory')
         self.vendor = Util.new_vendor(name='Vendorino', website='http://venderino.com')
         self.datastore1 = Util.new_datastore("Storino")
         self.server1 = Util.new_server('Serverino', self.vendor)
