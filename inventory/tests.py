@@ -23,19 +23,56 @@ class InventoryViewsTestCase(TestCase):
 
     def test_vm_list(self):
         resp = self.client.get('/inventory/vm/')
+        
+        # test to ensure that this list view is not broken
         self.assertEqual(resp.status_code, 200)
+        # test that the view contains all vms
+        # check the pk to ensure that all is as expected
         self.assertEqual([vm.pk for vm in resp.context['vm_list']], [114, 115])
        
     def test_vm_detail(self):
-        # Ensure that non-existent vms throw a 404.
+        # Ensure that requests for non-existent vms throw a 404.
         resp = self.client.get('/inventory/vm/1/')
         self.assertEqual(resp.status_code, 404)
+
         # Ensure that existent vms are viewable.
         resp = self.client.get('/inventory/vm/115/')
         self.assertEqual(resp.status_code, 200)
-        vm_1 = resp.context['vm_list'][0]
-        self.assertEqual(resp.context['vm_list'][0].pk, 115)        
+        vm_1 = resp.context['vm']
+        self.assertEqual(resp.context['vm'].pk, 115)        
+    
+    def test_datastore_list(self):
+        resp = self.client.get('/inventory/datastore/list/')
+         
+        # test that the view contains all vms
+        # check the pk to ensure that all is as expected
+        self.assertEqual([ds.pk for ds in resp.context['dstore_list']], [10, 6])
 
-    def test_datastores(self):
-        count = len(DataStore.objects.all())
-        assert(count == 2)
+    def test_datastore_detail(self):
+        # Ensure that requests for non-existent datastores throw a 404.
+        resp = self.client.get('/inventory/datastore/1/')
+        self.assertEqual(resp.status_code, 404)
+
+        # Ensure that existent vms are viewable.
+        resp = self.client.get('/inventory/datastore/10/')
+        self.assertEqual(resp.status_code, 200)
+        vm_1 = resp.context['dstore']
+        self.assertEqual(resp.context['dstore'].pk, 10)
+
+    def test_host_list(self):
+        resp = self.client.get('/inventory/host/list/')
+         
+        # test that the view contains all hosts
+        # check the pk to ensure that all is as expected
+        self.assertEqual([host.pk for host in resp.context['vmhost_list']], [6, 4])
+
+    def test_datastore_detail(self):
+        # Ensure that requests for non-existent hosts throw a 404.
+        resp = self.client.get('/inventory/host/1/')
+        self.assertEqual(resp.status_code, 404)
+
+        # Ensure that existent hosts are viewable.
+        resp = self.client.get('/inventory/host/6/')
+        self.assertEqual(resp.status_code, 200)
+        vm_1 = resp.context['vmhost']
+        self.assertEqual(resp.context['vmhost'].pk, 6)
