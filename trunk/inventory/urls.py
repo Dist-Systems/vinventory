@@ -25,8 +25,7 @@ server_dict = {
 
 
 urlpatterns = patterns('',
-	
-  url(r'^server/list/$', list_detail.object_list, dict(server_dict,template_name='server_list.html'), name='server-list'),
+	url(r'^server/list/$', list_detail.object_list, dict(server_dict,template_name='server_list.html'), name='server-list'),
 	url(r'^server/create', 'inventory.views.newServer', name='new-server'),
 	url(r'^server/view/(?P<object_id>[-\w]+)/', list_detail.object_detail, dict(server_dict, template_name='server_detail.html'), name='server-detail'),
 	url(r'^server/edit/(?P<server_id>[-\w]+)', 'inventory.views.editServer', name='edit-server'),

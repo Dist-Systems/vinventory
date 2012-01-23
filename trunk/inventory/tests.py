@@ -21,6 +21,20 @@ class InventoryViewsTestCase(TestCase):
         vendor1 = resp.context['vendor_list'][0]
         self.assertEqual(vendor1.name, 'Dell Inc.') 
 
+    def test_vm_list(self):
+        resp = self.client.get('/inventory/vm/')
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual([vm.pk for vm in resp.context['vm_list']], [114, 115])
+       
+    def test_vm_detail(self):
+        # Ensure that non-existent vms throw a 404.
+        resp = self.client.get('/inventory/vm/1/')
+        self.assertEqual(resp.status_code, 404)
+        # Ensure that existent vms are viewable.
+        resp = self.client.get('/inventory/vm/115/')
+        self.assertEqual(resp.status_code, 200)
+        vm_1 = resp.context['vm_list'][0]
+        self.assertEqual(resp.context['vm_list'][0].pk, 115)        
 
     def test_datastores(self):
         count = len(DataStore.objects.all())
