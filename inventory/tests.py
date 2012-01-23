@@ -66,7 +66,7 @@ class InventoryViewsTestCase(TestCase):
         # check the pk to ensure that all is as expected
         self.assertEqual([host.pk for host in resp.context['vmhost_list']], [6, 4])
 
-    def test_datastore_detail(self):
+    def test_host_detail(self):
         # Ensure that requests for non-existent hosts throw a 404.
         resp = self.client.get('/inventory/host/1/')
         self.assertEqual(resp.status_code, 404)
