@@ -6,7 +6,7 @@ path = os.path.abspath('.')
 sys.path.append(path)
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 
-from inventory.utils import createDataStores, createVirtualHosts, createVirtualMachines, createIPs 
+from inventory.utils import createDataStores, createVirtualHosts, createVirtualMachines, createIPs, clearAll 
 
 def ds():
   datastore_file  = path+"/data/DataStore.csv"
@@ -29,6 +29,7 @@ def ip():
   createIPs(ip_file, ip_names)
 
 if __name__ == '__main__':
+  clearAll()
   ds()
   vmh()
   vm()

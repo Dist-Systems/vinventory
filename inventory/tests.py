@@ -38,7 +38,6 @@ class InventoryViewsTestCase(TestCase):
         # Ensure that existent vms are viewable.
         resp = self.client.get('/inventory/vm/115/')
         self.assertEqual(resp.status_code, 200)
-        vm_1 = resp.context['vm']
         self.assertEqual(resp.context['vm'].pk, 115)        
     
     def test_datastore_list(self):

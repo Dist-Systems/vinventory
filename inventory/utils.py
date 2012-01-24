@@ -1,16 +1,19 @@
 from django.db import models
 from inventory.models import VirtualMachine, VMHost, DataStore, Vendor, IpAddress
 import sys,os,csv
+from django.core.management import call_command
 
-def clearAll(model):
+def clearAll():
   ''' Opens a file for reading and returns an open file stream 
       which can be looped over, or stepped through. Each line 
       is a dictionary
       @param model - the model to clear
   '''
-  count = len(open(file_path).read().splitlines())
-  stream = open(file_path)
-  dataReader = csv.DictReader(open(file_path), fieldnames=names)
+  #call_command('reset', 'inventory')
+  
+  VMHost.objects.all().delete()
+  DataStore.objects.all().delete()
+  VirtualMachine.objects.all().delete()
 
 def openDataSource(file_path, names):
   ''' Opens a file for reading and returns an open file stream 
@@ -229,4 +232,3 @@ def createVirtualMachines(file_path, names):
     i += 1
   result = (i == records)
   assert result, "record count {0} does not match the count of records processed {1}".format(records,i)    
-  
