@@ -18,6 +18,8 @@
      <li><strong>VirtualMachine.csv</strong><br/>Name,PowerState,NumCpu,MemoryMB,Notes,VMHost,Datastore</li>
      <li><strong>IpAddress.csv</strong><br/>Name,ip</li>
    </ul>
-   <p>
+   <p>These files are assumed to be kept in the data subfolder of django django project. The script that reads the data files is part of the 
+   svn project, and is located in the scripts subfolder of the django project. Since the vsphere data is 'read-only': every time the script 
+   runs, it resets the tables associated with vsphere objects and then repopulates them entirely. 
    </p>
 {% endblock content%}
