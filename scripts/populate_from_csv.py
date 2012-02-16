@@ -1,9 +1,11 @@
 import sys,os
 
 # Full path to your django directory
-path = os.path.abspath('.')
+pathname = os.path.dirname(os.path.abspath(__file__))
+path     = os.path.abspath(os.path.join(pathname, '..'))
+sys.path.insert(0, pathname)
+sys.path.insert(0, os.path.abspath(os.path.join(pathname, '..')))
 
-sys.path.append(path)
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 
 from inventory.utils import createDataStores, createVirtualHosts, createVirtualMachines, createIPs, clearAll 
